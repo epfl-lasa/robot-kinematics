@@ -6,8 +6,6 @@ project(skinematics)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   roscpp
-  rospy
-  std_msgs
   mathlib
 )
 
@@ -83,7 +81,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
   INCLUDE_DIRS include
   LIBRARIES skinematics
-  CATKIN_DEPENDS roscpp rospy std_msgs mathlib
+  CATKIN_DEPENDS mathlib
 #  DEPENDS system_lib
 )
 
