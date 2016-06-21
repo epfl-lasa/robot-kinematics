@@ -1,7 +1,7 @@
 #ifndef __sKinematics_H__
 #define __sKinematics_H__
 
-#include "MathLib.h"
+#include <mathlib/MathLib.h>
 
 #define SINGULAR_TOLERANCE 0.001
 #define IK_TOLERANCE 0.000001
