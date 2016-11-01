@@ -2,9 +2,12 @@
 #define __sKinematics_H__
 
 #include <mathlib/MathLib.h>
+#include "eigen3/Eigen/Dense"
 
 #define SINGULAR_TOLERANCE 0.001
 #define IK_TOLERANCE 0.000001
+
+
 
 struct DH {
 	int active;
@@ -105,11 +108,14 @@ public:
 	void getLinkTMatrix(int link_index, MathLib::Matrix4 &T);
 	void getEndTMatrix(MathLib::Matrix4 &T);
 	void getJacobianPos(MathLib::Matrix &J);
+	void getJacobianPos(Eigen::MatrixXd &J);
 	void getJacobianPos(int link_index, MathLib::Matrix &J);
 	void getJacobianDirection(int axis, MathLib::Matrix &J);
 	void getJacobianDirection(int link_index, int axis, MathLib::Matrix &J);
+	void getJacobianDirection( int axis, Eigen::MatrixXd &J);
 	void getJacobianFullDirection(int axis1, int axis2, MathLib::Matrix &J);
 	void getJacobian(MathLib::Matrix &J);
+	void getJacobian(Eigen::MatrixXd &J);
 
 
 	// Inverse Kinematics for several imitation points

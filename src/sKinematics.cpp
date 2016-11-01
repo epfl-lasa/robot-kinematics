@@ -484,6 +484,31 @@ void sKinematics::getJacobianPos(int link_index, double **J)
 		}
 	}
 }
+void sKinematics::getJacobianPos(Eigen::MatrixXd &J)
+{
+	int i, j, ai;
+	double v1[3], v2[3], v3[3];
+	J.resize(3,dof);
+	for(ai=0; ai<dof; ai++){
+		i=active_index[ai];
+		if( i == 0 ){
+			for( j=0; j<3; j++){
+				v1[j] = T0[j][2];
+				v2[j] = H0F[j][3] - T0[j][3];
+			}
+		}
+		else{
+			for( j=0; j<3; j++){
+				v1[j] = sDH[i-1].H0i[j][2];
+				v2[j] = H0F[j][3] - sDH[i-1].H0i[j][3];
+			}
+		}
+		CrossProduct(v1, v2, v3);
+		J(0,ai) = v3[0];
+		J(1,ai) = v3[1];
+		J(2,ai) = v3[2];
+	}
+}
 
 /******************************************************************
  * Get position jacobian for specific link index
@@ -605,6 +630,32 @@ void sKinematics::getJacobianDirection(int link_index, int axis, MathLib::Matrix
 			for( j=0; j<3; j++){
 				v1[j] = sDH[i-1].H0i[j][2];
 				v2[j] = sDH[link_index].H0i[j][axis];
+			}
+		}
+		CrossProduct(v1, v2, v3);
+		J(0,ai) = v3[0];
+		J(1,ai) = v3[1];
+		J(2,ai) = v3[2];
+	}
+}
+
+void sKinematics::getJacobianDirection(int axis, Eigen::MatrixXd &J)
+{
+	int i, j, ai;
+	double v1[3], v2[3], v3[3];
+	J.resize(3,dof);
+	for(ai=0; ai<dof; ai++){
+		i=active_index[ai];
+		if( i==0 ){
+			for( j=0; j<3; j++){
+				v1[j] = T0[j][2];
+				v2[j] = H0F[j][axis];
+			}
+		}
+		else{
+			for( j=0; j<3; j++){
+				v1[j] = sDH[i-1].H0i[j][2];
+				v2[j] = H0F[j][axis];
 			}
 		}
 		CrossProduct(v1, v2, v3);
@@ -756,6 +807,44 @@ void sKinematics::getJacobian(MathLib::Matrix& J)
 {
 	int i, j, ai;
 	double v1[3], v2[3], v3[3];
+	for(ai=0; ai<dof; ai++){
+		i=active_index[ai];
+		if(i==0){
+			for( j=0; j<3; j++){
+				v1[j] = T0[j][2];
+				v2[j] = H0F[j][3] - T0[j][3];
+			}
+			J(3,ai) = T0[0][2];
+			J(4,ai) = T0[1][2];
+			J(5,ai) = T0[2][2];
+
+		}
+		else{
+			for( j=0; j<3; j++){
+				v1[j] = sDH[i-1].H0i[j][2];
+				v2[j] = H0F[j][3] - sDH[i-1].H0i[j][3];
+			}
+			J(3,ai) = sDH[i-1].H0i[0][2];
+			J(4,ai) = sDH[i-1].H0i[1][2];
+			J(5,ai) = sDH[i-1].H0i[2][2];
+		}
+		CrossProduct(v1, v2, v3);
+		J(0,ai) = v3[0];
+		J(1,ai) = v3[1];
+		J(2,ai) = v3[2];
+	}
+}
+
+/******************************************************************
+ * Get direction jacobian
+ *
+ * @ J : return geo jacobian (6 X dof)
+ ******************************************************************/
+void sKinematics::getJacobian(Eigen::MatrixXd& J)
+{
+	int i, j, ai;
+	double v1[3], v2[3], v3[3];
+	J.resize(6,dof);
 	for(ai=0; ai<dof; ai++){
 		i=active_index[ai];
 		if(i==0){
