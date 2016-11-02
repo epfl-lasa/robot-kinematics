@@ -301,11 +301,13 @@ void sKinematics::getEndPos(double pos[])
  *
  * @return : 3DOF position
  ******************************************************************/
-void sKinematics::getEndPos(Eigen::Vector3d pos)
+void sKinematics::getEndPos(Eigen::Vector3d &pos)
 {
+
 	for(int i=0; i<3; i++ ){
 		pos(i) = H0F[i][3];
 	}
+
 }
 
 
@@ -339,7 +341,7 @@ void sKinematics::getEndDirAxis(int axis, double dir[])
  *
  * @return : Axis direction vector
  ******************************************************************/
-void sKinematics::getEndDirAxis(int axis, Eigen::Vector3d  dir)
+void sKinematics::getEndDirAxis(int axis, Eigen::Vector3d  &dir)
 {
 
 	for(int i=0; i<3; i++ ){

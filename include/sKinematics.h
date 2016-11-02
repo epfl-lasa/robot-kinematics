@@ -96,8 +96,8 @@ public:
 	void getEndDirAxis(int axis, double dir[]);
 	void getLinkTMatrix(int link_index, double T[][4]);
 
-	void getEndPos(Eigen::Vector3d pos);
-	void getEndDirAxis(int axis, Eigen::Vector3d  dir);
+	void getEndPos(Eigen::Vector3d &pos);
+	void getEndDirAxis(int axis, Eigen::Vector3d &dir);
 
 	// Jacobians
 	void getJacobianPos(double **J);
