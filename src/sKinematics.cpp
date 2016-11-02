@@ -296,6 +296,18 @@ void sKinematics::getEndPos(double pos[])
 	}
 }
 
+/******************************************************************
+ * Get end effector position
+ *
+ * @return : 3DOF position
+ ******************************************************************/
+void sKinematics::getEndPos(Eigen::Vector3d pos)
+{
+	for(int i=0; i<3; i++ ){
+		pos(i) = H0F[i][3];
+	}
+}
+
 
 /******************************************************************
  * Get position of link_index
@@ -319,6 +331,20 @@ void sKinematics::getEndDirAxis(int axis, double dir[])
 	for(int i=0; i<3; i++ ){
 		//dir[i] = H0F[i][axis];
 		dir[i] = H0F[i][axis];
+	}
+}
+
+/******************************************************************
+ * Get end effector direction
+ *
+ * @return : Axis direction vector
+ ******************************************************************/
+void sKinematics::getEndDirAxis(int axis, Eigen::Vector3d  dir)
+{
+
+	for(int i=0; i<3; i++ ){
+		//dir[i] = H0F[i][axis];
+		dir(i) = H0F[i][axis];
 	}
 }
 
