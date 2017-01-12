@@ -92,6 +92,7 @@ public:
 	
 	// Forward Kinematics
 	void getEndPos(double pos[]);
+	void getEndPos(int link_index, Eigen::Vector3d& pos);
 	void getEndPos(int link_index, double pos[]);
 	void getEndDirAxis(int axis, double dir[]);
 	void getLinkTMatrix(int link_index, double T[][4]);

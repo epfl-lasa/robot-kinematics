@@ -323,6 +323,13 @@ void sKinematics::getEndPos(int link_index, double pos[])
 	}
 }
 
+void sKinematics::getEndPos(int link_index, Eigen::Vector3d& pos)
+{
+	for(int i=0; i<3; i++ ){
+		pos(i) = sDH[link_index].H0i[i][3];
+	}
+}
+
 /******************************************************************
  * Get end effector direction 
  *
