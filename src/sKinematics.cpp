@@ -116,6 +116,13 @@ void sKinematics::setT0(MathLib::Matrix4 T)
 			 T0[i][j] = T(i,j);
 }
 
+void sKinematics::setT0(Eigen::Matrix4d T)
+{
+	for(int i=0; i<4; i++)
+		for(int j=0; j<4; j++)
+			 T0[i][j] = T(i,j);
+}
+
 void sKinematics::getT0(MathLib::Matrix4& T)
 {
 	for(int i=0; i<4; i++)
