@@ -113,6 +113,8 @@ public:
 	void getJacobianPos(MathLib::Matrix &J);
 	void getJacobianPos(Eigen::MatrixXd &J);
 	void getJacobianPos(int link_index, MathLib::Matrix &J);
+	void getJacobianPos(int link_index, Eigen::MatrixXd &J);
+	void getJacobianPos_fast(int link_index, Eigen::MatrixXd &J);
 	void getJacobianDirection(int axis, MathLib::Matrix &J);
 	void getJacobianDirection(int link_index, int axis, MathLib::Matrix &J);
 	void getJacobianDirection( int axis, Eigen::MatrixXd &J);

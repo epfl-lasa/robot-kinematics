@@ -576,6 +576,63 @@ void sKinematics::getJacobianPos(int link_index, MathLib::Matrix &J)
 }
 
 
+void sKinematics::getJacobianPos(int link_index, Eigen::MatrixXd &J)
+{
+	int i, j, ai;
+		double v1[3], v2[3], v3[3];
+		for(ai=0; ai<dof; ai++){
+			i=active_index[ai];
+			if( i> link_index ){
+				J(0,ai) = 0.0;
+				J(1,ai) = 0.0;
+				J(2,ai) = 0.0;
+			}
+			else{
+				if( i == 0 ){
+					for( j=0; j<3; j++){
+						v1[j] = T0[j][2];
+						v2[j] = sDH[link_index].H0i[j][3] - T0[j][3];
+					}
+				}
+				else{
+					for( j=0; j<3; j++){
+						v1[j] = sDH[i-1].H0i[j][2];
+						v2[j] = sDH[link_index].H0i[j][3] - sDH[i-1].H0i[j][3];
+					}
+				}
+				CrossProduct(v1, v2, v3);
+				J(0,ai) = v3[0];
+				J(1,ai) = v3[1];
+				J(2,ai) = v3[2];
+			}
+		}
+}
+
+void sKinematics::getJacobianPos_fast(int link_index, Eigen::MatrixXd &J)
+{
+	int i, j, ai;
+	double v1[3], v2[3], v3[3];
+	for(ai=0; ai<link_index; ai++){
+		i=active_index[ai];
+			if( i == 0 ){
+				for( j=0; j<3; j++){
+					v1[j] = T0[j][2];
+					v2[j] = sDH[link_index].H0i[j][3] - T0[j][3];
+				}
+			}
+			else{
+				for( j=0; j<3; j++){
+					v1[j] = sDH[i-1].H0i[j][2];
+					v2[j] = sDH[link_index].H0i[j][3] - sDH[i-1].H0i[j][3];
+				}
+			}
+			CrossProduct(v1, v2, v3);
+			J(0,ai) = v3[0];
+			J(1,ai) = v3[1];
+			J(2,ai) = v3[2];
+	}
+}
+
 /******************************************************************
  * Get direction jacobian
  *
