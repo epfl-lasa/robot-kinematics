@@ -69,6 +69,7 @@ public:
 	void setT0(double T[][4]);
 	void setT0(MathLib::Matrix4 T);
 	void getT0(MathLib::Matrix4 &T);
+	void getT0(Eigen::Matrix4d& T);
 	void setTF(double T[][4]);
 	void setTF(MathLib::Matrix4 T);
 	void readyForKinematics(void);
